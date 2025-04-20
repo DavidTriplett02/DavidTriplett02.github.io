@@ -5,16 +5,201 @@
         <link rel="stylesheet" href="Styles.css"/>
     </head>
     <body>
-        <h1>David Triplett<h1>
-        <!-- 
-        <h2>Introduction</h2>
-        <div class="text" id="intro">
-        <p>During my computer science education, I learned skills across a variety of technical fields. I learned numerous programming languages, including C++, C#, Python, Java, JavaScript, and more. Early on, I gained experience with object-oriented programming, algorithms and data structures, web design, and databases. Later on in my degree, I gained experience with client-server development, mobile application development, security, testing, and graphics programming. I also learned some more general concepts, such as collaboration and communication within software development, technical writing, and the software development life cycle.</p>
-        <p>Some notable projects throughout my college degree include an event reminder Android application (Java), a maze pathfinding AI program (Python), a full-stack website (mostly JavaScript), and a GUI calculator desktop application (C#).</p>
-        <p>As I approached the end of my degree, I began to specialize in game development. I enrolled in two game development electives. In both of them, I learned to use the Unreal Engine to design and develop games. I created an arena shooter in which one player competes against multiple AI-controlled players, and a 3D platformer game. </p>
-        <p>A part of my computer science “Capstone” course, the final course in the program, I was tasked with enhancing a project from any previous CS course. I chose to improve a project from a course called Computational Graphics. The project was an animated beach scene including moving waves and a day / night cycle. It was originally just a graphics application with no interactivity or objective. As part of my series of enhancements, I turned it into a game. I added gravity, collision, walking, running, jumping, swimming, and the ability to use a game controller (in addition to a mouse and keyboard). I also added ten collectible items, scattered throughout the small open world, resembling beach balls. The objective is to find and collect all of the beach balls, most of which are located in hard-to-reach places. </p>
-        <p>Below is a video code review detailing the original application, code, and planned enhancements:</p>
+        <div class="text" id="Name"></div>
+            <h1>David Triplett<h1>
         </div>
-        -->
+        
+        <div class="text" id="intro">
+            <h2>Introduction</h2>
+            <p>During my computer science education, I learned skills across a variety of technical fields. I learned numerous programming languages, including C++, C#, Python, Java, JavaScript, and more. Early on, I gained experience with object-oriented programming, algorithms and data structures, web design with HTML and <span class="showing-off-my-css-skills">CSS</span>, and databases. Later on in my degree, I gained experience with client-server development, mobile application development, security, testing, and graphics programming. I also learned some more general concepts, such as collaboration and communication within software development, technical writing, and the software development life cycle.</p>
+            <p>Some notable projects throughout my college degree include an event reminder Android application (Java), a maze pathfinding AI program (Python), a full-stack website (mostly JavaScript), and a GUI calculator desktop application (C#).</p>
+            <p>As I approached the end of my degree, I began to specialize in game development. I enrolled in two game development electives. In both of them, I learned to use the Unreal Engine to design and develop games. I created an arena shooter in which one player competes against multiple AI-controlled players, and a 3D platformer game. </p>
+            <p>A part of my computer science “Capstone” course, the final course in the program, I was tasked with enhancing a project from any previous CS course. I chose to improve a project from a course called Computational Graphics. The project was an animated beach scene including moving waves and a day / night cycle. I created it using OpenGL and C++. It was originally just a graphics application with no interactivity or objective. As part of my series of enhancements, I turned it into a game. I added gravity, collision, walking, running, jumping, swimming, and the ability to use a game controller (in addition to a mouse and keyboard). I also added ten collectible items, scattered throughout the small open world, resembling beach balls. The objective is to find and collect all of the beach balls, most of which are located in hard-to-reach places. </p>
+            <p>Below is a video code review detailing the original application, code, and planned enhancements:</p>
+            <p><iframe width="630" height="455" src="https://www.youtube.com/embed/DNvD2VFAyuY" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></p>
+            
+            <p>Here is a link to download the original Visual Studio project:</p>
+            <p><a href="GraphicsProject.zip" download="GraphicsProject">GraphicsProject.zip</a></p>
+            <p>The link to the fully enhance version is located at the bottom of the page.</p>
+        </div>
+        <div class="text" id="week-one-and-two">
+            <h2>Week 1 and 2: Planning Phase</h2>
+            <p>Designed a detailed roadmap of the planned enhancements.</p>
+        </div>
+        <div class="text" id="week-three">
+            <h2>Week 3: Software Design and Engineering</h2>
+            <h3>Enhancements</h3>
+            <ul>
+                <li>Movement has been updated to now be restricted to the ground (walking instead of flying).</li>
+                <li>Added the ability to jump.</li>
+                <li>Added the ability to swim. Added a sea floor.</li>
+                <li>Added controller input support.</li>
+                <li>Added and updated comments.</li>
+                <li>Upgraded many “magic numbers” to constants and added new constants <code>(SUN_ROTATION_RATE, SUN_ROTATION_RADIUS, PLAYER_BASE_HEIGHT, PLAYER_MOVEMENT_SPEED_MULTIPLIER, CONTROLLER_DEADZONE, CONTROLLER_CAMERA _SPEED, and more).</code></li>
+                <li>Most new features were abstracted into functions.</li>
+                <li>The inputs to move up, move down, and switch between perspective and orthographic view have been removed.</li>
+                <li>The scroll wheel now adjusts camera speed, not movement speed.</li>
+                <li><b>For now,</b> the waves have been removed.</li>
+            </ul>
+            <h3>Issues</h3>
+            <p>One challenge was implementing the jump feature. I initially struggled to achieve a consistent jump height and force the player to return to the ground. Even after successfully adding jumping, it looks… horrible. The player begins moving up at a constant velocity, hits the peak, then immediately falls at a constant velocity. No acceleration. No deceleration. No holding the button to jump slightly higher. </p>
+            <p>Other issues to fix: </p>
+            <ul>
+                <li>Walking speed is affected by the vertical camera angle; looking straight down or straight up halts movement completely.</li>
+                <li>Jump direction is also based on the vertical camera angle, rather than being up relative to world space every time. </li>
+            </ul>
+        </div>
+        <div class="text" id="week-four">
+            <h2>Week 4: Algorithms and Data Structures</h2>
+            <h3>Enhancements</h3>
+            <ul>
+                <li>Implemented collision detection.</li>
+                <ul>
+                    <li>The new pickup items react to being walked through.</li>
+                    <li>Uses Axis-Aligned Bounding Boxes (AABB): one for the player and one for each collision object. Each collision object is surrounded by an invisible “bounding box.” The boxes are “axis-aligned” because they do not rotate with the object. This constraint requires fewer computations.</li>
+                    <li>The AABB algorithm checks every frame to see if two boxes are overlapping on <b>all three axes.</b> If that is the case, a collision has occurred. In C++, it looks like this: <br/>
+                        <code lang="C">return ( <br/>
+                            this->minX <= <var>otherBoxMaxX</var> && <br/>
+                            this->maxX >= otherBoxMinX && <br/>
+                            this->minY <= otherBoxMaxY && <br/>
+                            this->maxY >= otherBoxMinY && <br/>
+                            this->minZ <= otherBoxMaxZ && <br/>
+                            this->maxZ >= otherBoxMinZ
+                        );</code>
+                    </li>
+                    <li>Updating the box boundaries looks like this: <br/>
+                        <code>
+                            this->minX = this->location.x - (this->collisionBoxSize.x) / 2; <br/>
+                            this->maxX = this->location.x + (this->collisionBoxSize.x) / 2;<br/><br/>
+
+                            this->minY = this->location.y - (this->collisionBoxSize.y) / 2;<br/>
+                            this->maxY = this->location.y + (this->collisionBoxSize.y) / 2;<br/><br/>
+
+                            this->minZ = this->location.z - (this->collisionBoxSize.z) / 2;<br/>
+                            this->maxZ = this->location.z + (this->collisionBoxSize.z) / 2;
+                        </code>
+                    </li>
+                    <li>Every collectible item is stored in a C++ vector. Every frame, the program loops through the vector, renders each collectible, and tests for player collision.</li>
+                    <li>Time complexity: <b>O(n)</b>
+                        <ul>
+                            <li>Usually, collision detection is <b>O(n<sup>2</sup>).</b> However, that is only true if we test every collision object against every other collision object. This application <i>only</i> tests if the player has collided with another collision object. </li>
+                        </ul>
+                    </li>
+
+                </ul>
+                <li>Improved the algorithm for updating the location of the waves.</li>
+                <ul>
+                    <li>Waves move toward the shore at a constant rate.</li>
+                    <li>When they get close to the shore, they begin moving down to simulate crashing.</li>
+                    <li>When they reach the shore, they immediately respawn at their starting location: <br/>
+                        <code>
+                            for (Wave& wave : waves) <br/>
+                            {<br/>
+                                if (wave.getLocation().z >= SHORELINE + 10)<br/>
+                                {<br/>
+                                    wave.setLocation(wave.getStartingLocation());<br/>
+                                }<br/>
+                                else if ((wave.getLocation().z >= SHORELINE - 10))<br/>
+                                {<br/>
+                                    wave.setLocation(wave.getLocation() + glm::vec3(0, -WAVE_MOVEMENT_SPEED * gDeltaTime * 0.3f, WAVE_MOVEMENT_SPEED * gDeltaTime));<br/>
+                                }<br/>
+                                else<br/>
+                                {<br/>
+                                    wave.setLocation(wave.getLocation() + glm::vec3(0, 0, WAVE_MOVEMENT_SPEED * gDeltaTime));<br/>
+                                }<br/>
+                            }
+                        </code>
+                    </li>
+                    <li>Time complexity: <b>O(n)</b></li>
+                    <ul>
+                        <li>The previous algorithm was also <b>O(n)</b> but was unnecessarily convoluted and inefficient. It used expensive sine and cosine functions to create circular motion and continued performing calculations on waves that were invisible.</li>
+                    </ul>
+
+                </ul>
+                <li>Improved jumping physics. Fixed the issues I described in the last module. Jumping looks more natural. Instead of moving straight up and down at a constant speed, the player decelerates as they approach the peak, then accelerates downward until they hit the ground.</li>
+                <ul>
+                    <li>Applies constant downward acceleration.</li>
+                    <li>Integrates vertical acceleration to find vertical velocity; integrates vertical velocity to find vertical position: <br>
+                    <code>
+                        verticalVelocity += verticalAcceleration * gDeltaTime; <br/>
+                        g_pCamera->Position.y += verticalVelocity * gDeltaTime;
+                    </code>
+                    </li>
+                    <li>Pressing the jump button instantaneously increases vertical velocity.</li>
+
+                </ul>
+                <li>Additional improvements:</li>
+                <ul>
+                    <li>Movement speed is no longer affected by vertical camera angle.</li>
+                    <li>Jump direction is no longer affected by vertical camera angle.</li>
+                    <li>Created (but not completed) an object hierarchy.</li>
+                    <li>Player can now jump higher by holding down the jump button.</li>
+                </ul>
+            </ul>
+            <h3>Issues</h3>
+                <p>I encountered some issues with C++ base classes and inherited classes related to variables not being initialized properly. It had been multiple years since I had created C++ classes and objects, so I had to relearn a few concepts.</p>
+                <p>As of now, the game is not much of a game. The collectibles are neither challenging to find nor challenging to reach. In later modules, I will place them in hard-to-find and hard-to-reach places. In the databases module, I will make collected items persist across multiple sessions. I will also update the 3D model so that the collectibles to keep with the beach theme.</p>
+        </div>
+        <div class="text" id="week-five">
+            <h2>Week 5: Databases</h2>
+            <h3>Enhancements</h3>
+            <ul>
+                <li>Uses the SQLite C++ library.</li>
+                <li>Each collectible item has an entry in the database. When the player collects an item, the game will mark it as collected in the database. </li>
+                <li>When the game launches, it creates the database if it does not already exist. Then, it renders each collectible based on the Boolean “Collected” field in the database. It will appear gray and transparent if it is collected.</li>
+                <li>The Collectibles table includes two fields: ID (integer, unique) and Collected (Boolean)</li>
+                <ul>
+                    <li>Originally, the table was going to include the description and the X, Y, and Z location, However, this information does not need to be stored in the database; instead, it exists only in memory in instances of the Collectible class.</li>
+                </ul>
+                <li>As a security feature, if the database is deleted, it will be reacreated upon launching the application</li>
+                <li>Additional improvements:</li>
+                <ul>
+                    <li>The game no longer checks for player collision for items that have already been collected.</li>
+                    <li>I noticed that I accidentally added double-jumping. I am leaving this feature in. : ) </li>
+                </ul>
+            </ul>
+            <h3>Issues</h3>
+            <p>
+                In an attempt to increase the game’s performance and improve compatibility with external libraries, I tried to convert the 32-bit project into a 64-bit project. However, I soon learned that this process is more complicated than changing a few settings. I scrapped this plan for now. 
+            </p>
+        </div>
+        <div class="text" id="week-six-and-seven">
+            <h2>Weeks 6 and 7: Additional Improvements</h2>
+            <h3>Enhancements</h3>
+            <ul>
+                <li>Expanded collision detection to all objects in the game. The player can no longer walk through objects.</li>
+                <li>Added more collectible items.</li>
+                <ul>
+                    <li>There are now ten total collectibles scattered throughout the open world</li>
+                    <li>Some are purposefully located in hard-to-reach places.</li>
+                </ul>
+                <li>Created a custom texture for the collectibles. They now resmble beach balls, consistent witht the beach theme.</li>
+                <li>Improved database functionality</li>
+                <ul>
+                    <li>The game now supports multiple users.</li>
+                    <li>Each user has their own table in the database. When a new user is created, a new table is automatically generated.</li>
+                    <li>Each user's table stores the status of each collectible, either collected or not.</li>
+                    <li>Added the "Users" table.</li>
+                </ul>
+                <li>Added security features.</li>
+                <ul>
+                    <li>In an offline single-player game, security is not essential. However, some security is always nice to include.</li>
+                    <li>Each user must create a password.</li>
+                    <li>Passwords are stored in the "Users" table as hashes to prevent other users from obtaining them.</li>
+                </ul>
+                <li>Removed the rocks along the shoreline. They were causing huge frame rate drops.</li>
+                <li>Added moving platforms. Some collectibles are located at the end of platform courses.</li>
+                <li>Added a "death barrier." The player respawns on the shore of they fall below the barrier. This mostly prevents the player from falling endlessly if they miss a platform.</li>
+                <li>Added the ability to sprint.</li>
+                <li>Added signs. One sign keeps track of how many beach balls the player has collected. The other teaches the player how to sprint and is located next to a platform course that is impossible to complete without sprinting.</li>
+                <li>Made various visual improvements.</li>
+
+            </ul>
+        </div>
+        <div class="text" id="Download">
+            <p>Click below to download the fully enhanced Visual Studio project:</p>
+            <p><a>BeachGame.zip</a></p>
+            <p>&#127796; &#128044;</p>
+        </div>
     </body>
 </html>

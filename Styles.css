@@ -1,6 +1,96 @@
+:root
+{
+    --main-color: rgb(25, 25, 250);
+    --secondary-color: rgb(250, 75, 5);
+    --text-color: rgb(225, 225, 225);
+}
+
+html
+{
+    font-size: 16px
+}
 body
 {
     background-color: rgb(25, 25, 25);
-    color: rgb(225, 225, 225); 
-    font-family: Arial Narrow, sans-serif;
+    color: var(--text-color); 
+    font-family: calibri, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+div
+{
+    font-size: 1rem;
+    line-height: 2;
+    padding: 32px;
+    width: 512px;
+}
+
+p
+{
+    text-indent: 64px;
+    text-align: left;
+    color: var(--text-color); 
+    text-wrap: wrap;
+}
+
+li
+{
+    text-align: left;
+    color: var(--text-color);
+}
+
+ul > li::marker
+{
+    color: var(--main-color);
+}
+ul > ul > li::marker
+{
+    color: var(--secondary-color);
+}
+
+h1, h2, h3
+{
+    text-align: center;
+}
+
+h1
+{
+    font-size: 3rem;
+    color: var(--main-color);
+}
+
+h2
+{
+    font-size: 2.5rem;
+    color: var(--main-color);
+}
+
+h3
+{
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    text-align: left;
+}
+
+a 
+{
+    color: rgb(25, 25, 25);
+    text-decoration: none;
+    font-size: 1.5rem;
+    background-image: linear-gradient(var(--main-color), var(--secondary-color));
+    border-radius: 8px;
+}
+
+code
+{
+    background-color: rgb(55, 55, 55);
+}
+
+span.showing-off-my-css-skills
+{
+    background-image: linear-gradient(var(--main-color), var(--secondary-color));
+    color: rgb(25, 25, 25);
 }
